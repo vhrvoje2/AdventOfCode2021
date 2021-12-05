@@ -38,6 +38,7 @@ class Line:
 
 
 diagram = []
+angled_lines = []
 
 
 def part1():
@@ -45,8 +46,9 @@ def part1():
     xmax = max([line.xmax for line in lines])
     ymax = max([line.ymax for line in lines])
 
-    for x in range(xmax + 1):
-        new_row = [0 for y in range(ymax + 2)]
+    range_max = max([xmax, ymax])
+    for x in range(range_max + 1):
+        new_row = [0 for y in range(range_max + 1)]
         diagram.append(new_row)
 
     for line in lines:
@@ -64,6 +66,8 @@ def part1():
             else:
                 for x in range(line.x1, line.x2 + 1):
                     diagram[line.y1][x] += 1
+        else:
+            angled_lines.append(line)
 
     score = 0
     for line in diagram:
@@ -74,9 +78,38 @@ def part1():
     print(f"Part 1. solution {score}")
 
 
+def mark_coords(xcords, ycords):
+    for n in range(len(xcords)):
+        diagram[ycords[n]][xcords[n]] += 1
+
+
 def part2():
-    pass
-    # print(f"Part 2. solution {}")
+    for line in angled_lines:
+        if line.x1 < line.x2:
+            if line.y1 < line.y2:
+                xcords = [x for x in range(line.x1, line.x2 + 1)]
+                ycords = [y for y in range(line.y1, line.y2 + 1)]
+                mark_coords(xcords, ycords)
+            else:
+                xcords = [x for x in range(line.x1, line.x2 + 1)]
+                ycords = [y for y in range(line.y1, line.y2 - 1, -1)]
+                mark_coords(xcords, ycords)
+        elif line.x1 > line.x2:
+            if line.y1 < line.y2:
+                xcords = [x for x in range(line.x1, line.x2 - 1, -1)]
+                ycords = [y for y in range(line.y1, line.y2 + 1)]
+                mark_coords(xcords, ycords)
+            else:
+                xcords = [x for x in range(line.x1, line.x2 - 1, -1)]
+                ycords = [y for y in range(line.y1, line.y2 - 1, -1)]
+                mark_coords(xcords, ycords)
+
+    score = 0
+    for line in diagram:
+        for cord in line:
+            if cord > 1:
+                score += 1
+    print(f"Part 2. solution {score}")
 
 
 part1()
