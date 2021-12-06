@@ -1,3 +1,5 @@
+from timeit import Timer
+
 numbers_drawn = []
 input_boards = []
 with open("input4.txt", "r") as file:
@@ -107,5 +109,5 @@ def part2():
                 return
 
 
-part1()
-part2()
+print(f"Execution time: {Timer(part1).timeit(number=1)}")
+print(f"Execution time: {Timer(part2).timeit(number=1)}")

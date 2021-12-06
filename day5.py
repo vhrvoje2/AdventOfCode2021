@@ -1,3 +1,5 @@
+from timeit import Timer
+
 points = []
 with open("input5.txt", "r") as file:
     for item in file.readlines():
@@ -112,5 +114,5 @@ def part2():
     print(f"Part 2. solution {score}")
 
 
-part1()
-part2()
+print(f"Execution time: {Timer(part1).timeit(number=1)}")
+print(f"Execution time: {Timer(part2).timeit(number=1)}")

@@ -1,3 +1,4 @@
+from timeit import Timer
 from copy import deepcopy
 
 report = []
@@ -84,5 +85,5 @@ def part2():
     print(f"Part 2. solution {result}")
 
 
-part1()
-part2()
+print(f"Execution time: {Timer(part1).timeit(number=1)}")
+print(f"Execution time: {Timer(part2).timeit(number=1)}")

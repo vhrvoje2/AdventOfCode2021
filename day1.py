@@ -1,3 +1,5 @@
+from timeit import Timer
+
 measurements = []
 with open("input1.txt", "r") as file:
     for item in file.readlines():
@@ -26,5 +28,5 @@ def part2():
     print(f"Part 2. solution: {counter}")
 
 
-part1()
-part2()
+print(f"Execution time: {Timer(part1).timeit(number=1)}")
+print(f"Execution time: {Timer(part2).timeit(number=1)}")
